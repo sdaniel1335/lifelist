@@ -2,6 +2,20 @@
 require_once __DIR__ . '/lang.php';
 class Schedule
 {
+  public static function catholicYear($date) {
+    // Advent starts on the Sunday between November 27 and December 3.
+    $year=(int)$date->format('Y');
+    $advent=new DateTime($year.'-11-27', $date->getTimezone());
+    $advent->modify('+'.((7-(int)$advent->format('w'))%7).' days');
+    $key=$date->format('Y-m-d');
+    $liturgical_year=$year+($key>=$advent->format('Y-m-d') ? 1 : 0);
+    $cycles=array('C','A','B');
+    return array(
+      'sunday'=>$cycles[$liturgical_year%3],
+      'weekday'=>$liturgical_year%2 ? 'I' : 'II',
+      'new_year'=>$key===$advent->format('Y-m-d')
+    );
+  }
   public static function cycleWeek($date) {
     // The Monday of the week containing 2026-01-01 is the fixed A anchor.
     // Calendar days, rather than elapsed seconds, keep DST from shifting weeks.

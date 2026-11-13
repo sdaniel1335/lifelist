@@ -44,6 +44,7 @@ define('LANG_HU_CALENDAR_ARIA', 'Heti naptár, kis képernyőn oldalra görgethe
 define('LANG_HU_OTHER_YEAR', 'Másik év hete');
 define('LANG_HU_WORKDAY', 'Munkanap');
 define('LANG_HU_RESTDAY', 'Pihenőnap');
+define('LANG_HU_CATHOLIC_YEAR_TITLE', 'Katolikus egyházi év: A/B/C = a vasárnapi olvasmányok hároméves ciklusa; I/II = a hétköznapi olvasmányok kétéves ciklusa.');
 define('LANG_HU_NO_DESCRIPTION', 'Nincs részletes leírás.');
 define('LANG_HU_NO_ROUTINE', 'Nincs tervezett rutin');
 define('LANG_HU_SAVED_ROUTINES', 'Felvett rutinok');

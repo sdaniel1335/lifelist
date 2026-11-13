@@ -44,6 +44,7 @@ define('LANG_EN_CALENDAR_ARIA', 'Weekly calendar; scroll horizontally on small s
 define('LANG_EN_OTHER_YEAR', 'Week in another year');
 define('LANG_EN_WORKDAY', 'Workday');
 define('LANG_EN_RESTDAY', 'Day off');
+define('LANG_EN_CATHOLIC_YEAR_TITLE', 'Catholic liturgical year: A/B/C = the three-year Sunday reading cycle; I/II = the two-year weekday reading cycle.');
 define('LANG_EN_NO_DESCRIPTION', 'No description provided.');
 define('LANG_EN_NO_ROUTINE', 'No routines scheduled');
 define('LANG_EN_SAVED_ROUTINES', 'Saved routines');
