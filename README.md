@@ -1,4 +1,4 @@
-# Routinelist
+# Lifelist
 
 Egyszerű ismétlődőrutinnaptár a VC Framework alapján, PHP 5.3+ és MySQL/MariaDB környezethez.
 
