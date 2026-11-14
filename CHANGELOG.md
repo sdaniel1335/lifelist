@@ -2,13 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.1.0] - 2026-11-13
+## [0.1.0] - 2026-11-14
 
 ### Added
 
 - Initial Lifelist application built on [VC Framework](https://github.com/dsoos1290/vcframework) with PHP 5.3+ compatibility.
 - MySQLi-backed per-user routines with creation, editing, deletion, descriptions and custom ordering.
 - Daily, weekly, alternating A/B weekly, monthly, quarterly, half-yearly, yearly and seasonal recurrence rules.
+- Four-week recurrence options for 1st A, 2nd A, 1st B and 2nd B weeks, with a selected weekday.
 - Continuous A/B week rotation across year boundaries, anchored to the week containing January 1, 2026.
 - Previous, current and next week calendar views with partial weeks at year boundaries and Budapest-based today highlighting.
 - Collapsible previous week, subdued next week, expandable descriptions and mobile horizontal scrolling.

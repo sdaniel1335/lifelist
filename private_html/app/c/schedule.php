@@ -24,6 +24,13 @@ class Schedule
     $weeks=(int)floor((int)$anchor->diff($day)->format('%r%a')/7);
     return $weeks%2===0 ? 'A' : 'B';
   }
+  public static function four_week_phase($date) {
+    // 1st A, 1st B, 2nd A, 2nd B; continuous across year boundaries and DST.
+    $anchor=new DateTime('2025-12-29', $date->getTimezone());
+    $day=clone $date; $day->setTime(0,0,0);
+    $weeks=(int)floor((int)$anchor->diff($day)->format('%r%a')/7);
+    return (($weeks%4)+4)%4;
+  }
   public static function weekNumber($date) {
     $january=new DateTime($date->format('Y').'-01-01');
     return 1+(int)floor(((int)$date->format('z')+(int)$january->format('N')-1)/7);
@@ -37,7 +44,7 @@ class Schedule
     return array($start,$end);
   }
   public static function rules() {
-    return array('workday'=>lang('RULE_WORKDAY'),'restday'=>lang('RULE_RESTDAY'),'daily'=>lang('RULE_DAILY'),'weekly'=>lang('RULE_WEEKLY'),'odd'=>lang('RULE_A'),'even'=>lang('RULE_B'),'monthly'=>lang('RULE_MONTHLY'),'quarterly'=>lang('RULE_QUARTERLY'),'halfyear'=>lang('RULE_HALFYEAR'),'yearly'=>lang('RULE_YEARLY'),'season'=>lang('RULE_SEASON'));
+    return array('workday'=>lang('RULE_WORKDAY'),'restday'=>lang('RULE_RESTDAY'),'daily'=>lang('RULE_DAILY'),'weekly'=>lang('RULE_WEEKLY'),'odd'=>lang('RULE_A'),'even'=>lang('RULE_B'),'a_first'=>lang('RULE_A_FIRST'),'a_second'=>lang('RULE_A_SECOND'),'b_first'=>lang('RULE_B_FIRST'),'b_second'=>lang('RULE_B_SECOND'),'monthly'=>lang('RULE_MONTHLY'),'quarterly'=>lang('RULE_QUARTERLY'),'halfyear'=>lang('RULE_HALFYEAR'),'yearly'=>lang('RULE_YEARLY'),'season'=>lang('RULE_SEASON'));
   }
   public static function weekdays() { return array(1=>lang('MONDAY'),2=>lang('TUESDAY'),3=>lang('WEDNESDAY'),4=>lang('THURSDAY'),5=>lang('FRIDAY'),6=>lang('SATURDAY'),7=>lang('SUNDAY')); }
   public static function seasons() { return array(1=>lang('SPRING'),2=>lang('SUMMER'),3=>lang('AUTUMN'),4=>lang('WINTER')); }
@@ -53,6 +60,9 @@ class Schedule
       case 'restday': return !self::workday($date,$overrides);
       case 'weekly': return $weekday===(int)$r['weekday'];
       case 'odd': case 'even': return $weekday===(int)$r['weekday'] && self::cycleWeek($date)===($r['rule']==='odd' ? 'A' : 'B');
+      case 'a_first': case 'a_second': case 'b_first': case 'b_second':
+        $phases=array('a_first'=>0,'b_first'=>1,'a_second'=>2,'b_second'=>3);
+        return $weekday===(int)$r['weekday'] && self::four_week_phase($date)===$phases[$r['rule']];
       case 'monthly': return $day===min((int)$r['day_number'],(int)$date->format('t'));
       case 'quarterly':
         $start=new DateTime($date->format('Y').'-'.sprintf('%02d',1+3*(int)floor(($month-1)/3)).'-01');
@@ -65,7 +75,7 @@ class Schedule
   }
   public static function label($r) {
     $rules=self::rules(); $days=self::weekdays(); $seasons=self::seasons(); $label=$rules[$r['rule']];
-    if (in_array($r['rule'],array('weekly','odd','even'))) { $label.=' · '.$days[$r['weekday']]; }
+    if (in_array($r['rule'],array('weekly','odd','even','a_first','a_second','b_first','b_second'))) { $label.=' · '.$days[$r['weekday']]; }
     if ($r['rule']==='monthly') { $label.=' · '.sprintf(lang('NUMBER_DAY'),$r['day_number']); }
     if ($r['rule']==='quarterly') { $label.=' · '.sprintf(lang('WEEK_NUMBER'),$r['week_number']).' · '.($r['weekday'] ? $days[$r['weekday']] : lang('WHOLE_WEEK')); }
     if ($r['rule']==='halfyear') { $label.=' · '.sprintf(lang('NUMBER_MONTH'),$r['month_number']).' · '.($r['day_number'] ? sprintf(lang('NUMBER_DAY'),$r['day_number']) : lang('WHOLE_MONTH')); }

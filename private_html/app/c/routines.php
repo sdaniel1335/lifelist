@@ -17,7 +17,7 @@ class Routines extends App
       $rules=Schedule::rules();
       if ($title==='' || strlen($title)>600 || strlen($description)>60000 || !isset($rules[$rule])) { throw new Exception(lang('INVALID_ROUTINE')); }
       $weekday=0; $day=0; $month=0; $week=0; $season=0;
-      if (in_array($rule,array('weekly','odd','even','quarterly'))) { $weekday=$this->number('weekday',$rule==='quarterly' ? 0 : 1,7); }
+      if (in_array($rule,array('weekly','odd','even','a_first','a_second','b_first','b_second','quarterly'))) { $weekday=$this->number('weekday',$rule==='quarterly' ? 0 : 1,7); }
       if (in_array($rule,array('monthly','halfyear','yearly'))) { $day=$this->number('day_number',$rule==='halfyear' ? 0 : 1,31); }
       if (in_array($rule,array('halfyear','yearly'))) { $month=$this->number('month_number',1,$rule==='halfyear' ? 6 : 12); }
       if ($rule==='quarterly') { $week=$this->number('week_number',1,14); }

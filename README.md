@@ -49,6 +49,7 @@ Lifelist displays per-user routines across the previous, current and next week, 
 * **Daily:** every day, workdays or rest days.
 * **Weekly / A/B weekly:** on a selected weekday. The week containing January 1, 2026 (December 29, 2025 to January 4, 2026) is week A. The cycle alternates every Monday and continues across year boundaries. Existing internal `odd` / `even` values represent A / B; no migration is needed.
 * **Monthly:** on a selected day, falling back to the last day of shorter months.
+* **Every four weeks:** select 1st A, 2nd A, 1st B or 2nd B and a weekday. The cycle is 1st A -> 1st B -> 2nd A -> 2nd B, anchored to December 29, 2025 as 1st A. It continues across year boundaries and daylight saving changes. Existing fortnightly A/B rules remain available; no database migration is needed.
 * **Quarterly:** in one of the quarter's 1-14 seven-day blocks, optionally on a selected weekday. The first block starts on the first day of the quarter. Block 14 is partial and does not exist in every quarter. Without a weekday, the routine appears on every day of the block.
 * **Half-yearly:** in a selected month of the half-year beginning in January or July. A day value of `0` means the whole month.
 * **Yearly:** on a selected month and day; February 29 falls back to February 28 in non-leap years.
